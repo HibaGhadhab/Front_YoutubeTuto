@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { config } from 'rxjs';
 import { SharedService } from 'src/app/shared.service';
 
 @Component({
@@ -16,7 +17,6 @@ export class ShowDepComponent implements OnInit {
   ActivateAddEditDepComp:boolean=false;
   dep:any;
 
-
   // first methode to execute when this component is in scope
   ngOnInit(): void {
     this.refreshDepList();
@@ -26,10 +26,26 @@ export class ShowDepComponent implements OnInit {
     console.log("clicked!");
     this.dep={
       DepartmentId:0,
-      DepartmentName:"hiba dep"
+      DepartmentName:""
     }
     this.ModalTitle="Add Department";
     this.ActivateAddEditDepComp=true;
+  }
+
+  editClick(dataItem: any){
+    this.dep=dataItem;
+    this.ModalTitle="Edit Department";
+    this.ActivateAddEditDepComp=true;
+  }
+
+
+  deleteClick(item:any){
+    if(confirm('Are you sure??')){
+      this.service.deleteDepartmnet(item.DepartmentId).subscribe(data=>{
+        alert(data.toString());
+        this.refreshDepList();
+      })
+    }
   }
 
   closeClick(){

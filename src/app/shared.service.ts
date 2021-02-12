@@ -26,7 +26,7 @@ export class SharedService {
   }
 
   deleteDepartmnet(val: any){
-    return this.http.delete(this.APIUrl+'/department',val)
+    return this.http.delete(this.APIUrl+'/department/'+val)
   }
 
   // employee
